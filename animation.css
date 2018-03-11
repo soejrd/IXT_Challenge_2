@@ -1,0 +1,8 @@
+@keyframes background {
+    from {
+        background: linear-gradient(red, yellow);
+    }
+    to {
+        background: linear-gradient(yellow, blue);
+    }
+}

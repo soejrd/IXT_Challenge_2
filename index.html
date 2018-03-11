@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klok</title>
+    <link rel="stylesheet" href="./animation.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+
+
+</head>
+
+<body>
+    <h4 id="message">Geniet van de dag</h4>
+    <h1 id="clock">15:00</h1>
+    <img src="./mountainridge.svg" alt="" id="mountain">
+    <div class="time0 time"></div>
+    <div class="time1 time"></div>
+    <div class="time2 time"></div>
+    <div class="time3 time"></div>
+    <div class="time4 time"></div>
+    <div class="time5 time"></div>
+    <div class="time6 time"></div>
+    <div class="time7 time"></div>
+    <div class="time8 time"></div>
+    <div class="time9 time"></div>
+    <svg viewbox="0 0 100 100">
+        <circle cx="90" cy="5" r=".1" fill="white" class="circle"/>
+    </svg>
+    <script>
+        time();
+        stars();
+        //stars();
+        setInterval(function() {
+            time()
+        }, 60 * 1000);
+
+
+
+
+        //Create canvas with the device resolution.
+
+
+
+        //Create canvas with a custom resolution.
+
+
+
+        function stars() {
+            var starAmmount = 20;
+            var originalCircle = document.getElementsByClassName('circle');
+            var c = originalCircle[0].parentElement;
+            for (i = 0; i < starAmmount; i++) {
+                var circle2 = originalCircle[0].cloneNode(true);
+                originalCircle[0].parentNode.appendChild(circle2);
+                //var circle2 = circle.cloneNode(true);
+                var xr = Math.floor(Math.random() * 100);
+                var yr = Math.floor(Math.random() * 100);
+                var rr = Math.random() * (.5 - .1) + .1;
+                circle2.setAttributeNS(null, 'cx', xr);
+                circle2.setAttributeNS(null, 'cy', yr);
+                circle2.setAttributeNS(null, 'r', rr);
+            }
+            animateStars();
+            function animateStars() {
+                var tr = Array.from({
+                    length: starAmmount
+                }, () => Math.floor(Math.random() * 20));
+                for (i = 0; i < starAmmount; i++) {
+                    for (i = 0; i < starAmmount; i++) {
+                        TweenMax.to(originalCircle[i], tr[i], {
+                            opacity: 0,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: Power3.easeIn
+                        });
+                    }
+                }
+            }
+        }
+        function time() {
+            var mtn = document.getElementById('mountain');
+            var clock = document.getElementById('clock');
+            var msg = document.getElementById('message');
+            var div = document.getElementsByClassName('time');
+            var time = new Date();
+            //instellen tijd in h1
+            clock.innerHTML = time.getHours() + ':' + time.getMinutes();
+            var x = time.getHours();
+
+            switch (x) {
+                case 4:
+                    div[9].style.opacity = 0;
+                    clock.style.color = 'white';
+                    msg.style.color = 'white';
+                    mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(10%) saturate(0%)';
+                    nacht();
+                    break
+                case 5:
+                case 6:
+                    for (i = 8; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'black';
+                        msg.style.color = 'black';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(50%) saturate(200%)';
+                        nacht();
+                    }
+                    break;
+                case 7:
+                case 8:
+                    for (i = 7; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'black';
+                        msg.style.color = 'black';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(75%) saturate(75%)';
+                        ochtend();
+                    }
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                    for (i = 6; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'black';
+                        msg.style.color = 'black';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(100deg) brightness(90%) saturate(10%)';
+                        ochtend();
+                    }
+                    break;
+                case 12:
+                case 13:
+                case 14:
+                    for (i = 5; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'black';
+                        msg.style.color = 'black';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(100deg) brightness(90%) saturate(10%)';
+                        middag();
+
+                    }
+                    break;
+                case 15:
+                case 17:
+                case 18:
+                case 19:
+                    for (i = 4; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'black';
+                        msg.style.color = 'black';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(100deg) brightness(90%) saturate(10%)';
+                        middag();
+                    }
+                    break;
+                case 20:
+                case 21:
+                    for (i = 3; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'black';
+                        msg.style.color = 'black';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(50%) saturate(130%)';
+                        middag();
+                    }
+                    break;
+                case 22:
+                    for (i = 2; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'white';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(10%) saturate(0%)';
+                        avond();
+                    }
+                    break;
+                case 23:
+                    for (i = 1; i < 10; i++) {
+                        div[i].style.opacity = 0;
+                        clock.style.color = 'white';
+                        msg.style.color = 'white';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(10%) saturate(0%)';
+                        avond();
+                    }
+                    break;
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    for (i = 0; i < div.length; i++) {
+                        div[i].style.opacity = 1;
+                        clock.style.color = 'white';
+                        msg.style.color = 'white';
+                        mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(10%) saturate(0%)';
+                        nacht();
+
+                    }
+                default:
+                    break;
+
+            }
+
+            function ochtend() {
+                msg.innerHTML = 'Tijd om op te staan!'
+            }
+
+            function middag() {
+                msg.innerHTML = 'Geniet van de dag'
+            }
+
+            function avond() {
+                msg.innerHTML = 'Tijd om naar bed te gaan'
+            }
+
+            function nacht() {
+                msg.innerHTML = 'Zzz...'
+            }
+        }
+
+    </script>
+</body>
+
+</html>
