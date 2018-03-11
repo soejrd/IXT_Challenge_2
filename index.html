@@ -38,7 +38,7 @@
             time()
         }, 60 * 1000);
 
-        document.body.style.height = window.innerHeight;
+        document.body.style.height = window.height;
 
 
         function stars() {
@@ -80,9 +80,8 @@
             var div = document.getElementsByClassName('time');
             var time = new Date();
             //instellen tijd in h1
-            clock.innerHTML = time.getHours() + ':' + time.getMinutes();
+            clock.innerHTML = (("0" + time.getHours()).slice(-2)) + ':' + (("0" + time.getMinutes()).slice(-2));
             var x = time.getHours();
-
             switch (x) {
                 case 4:
                     div[9].style.opacity = 0;
