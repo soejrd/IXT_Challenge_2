@@ -31,11 +31,7 @@
         <circle cx="90" cy="5" r=".1" fill="white" class="circle"/>
     </svg>
     <script>
-        //deze variabele kan aangepast worden om custom tijd te kiezen.
-        var customTime = '';
-        
-        
-        
+        console.info('Voer de functie time(tijd_in_uren) uit om een custom tijd te kiezen.')
         function getreqfullscreen() {
             var root = document.documentElement
             return root.requestFullscreen || root.webkitRequestFullscreen || root.mozRequestFullScreen || root.msRequestFullscreen
@@ -51,6 +47,7 @@
         }, 60 * 1000);
         document.body.style.height = window.height;
         moon();
+
         function moon() {
             TweenMax.to(document.getElementById('moon'), 1200, {
                 left: 0,
@@ -59,6 +56,7 @@
                 ease: Linear.easeIn
             })
         }
+
         function stars(s) {
             var starAmmount = 20;
             var originalCircle = document.getElementsByClassName('circle');
@@ -104,7 +102,8 @@
                 }
             }
         }
-        function time() {
+
+        function time(e) {
             var mtn = document.getElementById('mountain');
             var clock = document.getElementById('clock');
             var msg = document.getElementById('message');
@@ -113,8 +112,8 @@
             var mn = document.getElementById('moon');
             clock.innerHTML = (("0" + time.getHours()).slice(-2)) + ':' + (("0" + time.getMinutes()).slice(-2));
             var x = time.getHours();
-            if(customTime) {
-                var x = customTime;
+            if(e) {
+                var x = e;
             }
             switch (x) {
                 case 4:
@@ -230,23 +229,29 @@
                 default:
                     break;
             }
+
             function ochtend() {
                 msg.innerHTML = 'Tijd om op te staan!';
                 mn.style.opacity = '0';
             }
+
             function middag() {
                 msg.innerHTML = 'Geniet van de dag';
                 mn.style.opacity = '0';
             }
+
             function avond() {
                 msg.innerHTML = 'Tijd om naar bed te gaan';
                 mn.style.opacity = '1';
             }
+
             function nacht() {
                 msg.innerHTML = 'Zzz...';
                 mn.style.opacity = '1';
             }
         }
+
     </script>
 </body>
+
 </html>
