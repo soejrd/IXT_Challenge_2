@@ -1,4 +1,5 @@
-$black: #333333;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 * {
     margin: 0;
     padding: 0;
@@ -14,17 +15,19 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    overflow: hidden;
     svg {
-        //width: 100%;
-        //height: 100%;
         position: absolute;
         z-index: 1;
         top: 0;
-        //display: none;
-        //visibility: hidden;
+        transition-duration: 10s;
+        filter: drop-shadow(0 0 10px #FFF);
+        circle {
+            
+        }
     }
     h4 {
-        font-family: 'Source Sans Pro', sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-size: 14px;
         color: white;
         display: block;
@@ -33,7 +36,7 @@ body {
         font-style: italic;
     }
     h1 {
-        font-family: 'Futura LT', sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-weight: 400;
         color: red;
         font-size: 64px;
@@ -41,12 +44,25 @@ body {
         margin-bottom: 15vh;
         z-index: 2;
     }
-    img {
+    img#mountain {
         height: auto;
+        //max-height: 100px;
         width: 100%;
         z-index: 3;
         filter: invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(75%) saturate(5000%);
         transition-duration: 300s;
+    }
+    img#moon {
+        position: fixed;
+        top: 15vw;
+        z-index: 3;
+        width: 15vw;
+        right: 15vw;
+        opacity: 0;
+        transition-duration: 10s;
+        transform: scaleX(-1);
+        transform-origin: center;
+        filter: drop-shadow(0 0 5px #FFF);
     }
     div.time {
         position: absolute;
@@ -85,5 +101,18 @@ body {
     }
     div.time0 {
         background: linear-gradient(180deg, #16161A 30.94%, #43444D 69.06%, #9C6249 100%);
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    img {
+        bottom: -15vh;
+    }
+    h1 {
+        margin-bottom: -10vh !important;
+        font-size: 128px !important;
+    }
+    h4 {
+        font-size: 16px !important;
     }
 }

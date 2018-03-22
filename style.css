@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 * {
   margin: 0;
   padding: 0;
@@ -11,13 +12,16 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center; }
+  align-items: center;
+  overflow: hidden; }
   body svg {
     position: absolute;
     z-index: 1;
-    top: 0; }
+    top: 0;
+    transition-duration: 10s;
+    filter: drop-shadow(0 0 10px #FFF); }
   body h4 {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     color: white;
     display: block;
@@ -25,19 +29,30 @@ body {
     z-index: 2;
     font-style: italic; }
   body h1 {
-    font-family: 'Futura LT', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
     color: red;
     font-size: 64px;
     display: block;
     margin-bottom: 15vh;
     z-index: 2; }
-  body img {
+  body img#mountain {
     height: auto;
     width: 100%;
     z-index: 3;
     filter: invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(75%) saturate(5000%);
     transition-duration: 300s; }
+  body img#moon {
+    position: fixed;
+    top: 15vw;
+    z-index: 3;
+    width: 15vw;
+    right: 15vw;
+    opacity: 0;
+    transition-duration: 10s;
+    transform: scaleX(-1);
+    transform-origin: center;
+    filter: drop-shadow(0 0 5px #FFF); }
   body div.time {
     position: absolute;
     width: 100%;
@@ -64,5 +79,16 @@ body {
     background: linear-gradient(180deg, #15213D 0%, #4C6697 45.32%, #708CB1 56.57%, #A2B0BD 72.5%, #D8C6B0 81.16%, #FFBC73 89.29%, #E3763B 96.22%); }
   body div.time0 {
     background: linear-gradient(180deg, #16161A 30.94%, #43444D 69.06%, #9C6249 100%); }
+
+@media screen and (min-width: 1080px) {
+  img {
+    bottom: -15vh; }
+
+  h1 {
+    margin-bottom: -10vh !important;
+    font-size: 128px !important; }
+
+  h4 {
+    font-size: 16px !important; } }
 
 /*# sourceMappingURL=style.css.map */

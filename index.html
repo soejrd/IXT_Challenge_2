@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#333333">
+    <link rel="icon" href="./favicon.ico">
     <title>Klok</title>
     <link rel="stylesheet" href="./animation.css">
     <link rel="stylesheet" href="./style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
-
-
 </head>
 
 <body>
     <h4 id="message">Geniet van de dag</h4>
     <h1 id="clock">15:00</h1>
-    <img src="./mountainridge.svg" alt="" id="mountain">
+    <img src="./mountainRidgeDos.svg" alt="" id="mountain">
+    <img src="./moon.svg" alt="" id="moon">
     <div class="time0 time"></div>
     <div class="time1 time"></div>
     <div class="time2 time"></div>
@@ -31,24 +31,41 @@
         <circle cx="90" cy="5" r=".1" fill="white" class="circle"/>
     </svg>
     <script>
+        //deze variabele kan aangepast worden om custom tijd te kiezen.
+        var customTime = '';
+        
+        
+        
+        function getreqfullscreen() {
+            var root = document.documentElement
+            return root.requestFullscreen || root.webkitRequestFullscreen || root.mozRequestFullScreen || root.msRequestFullscreen
+        };
+        var globalreqfullscreen = getreqfullscreen();
+        document.addEventListener('click', function(e) {
+            var target = e.target;
+            globalreqfullscreen.call(document.documentElement)
+        }, false)
         time();
-        stars();
-        //stars();
         setInterval(function() {
             time()
         }, 60 * 1000);
-
         document.body.style.height = window.height;
-
-
-        function stars() {
+        moon();
+        function moon() {
+            TweenMax.to(document.getElementById('moon'), 1200, {
+                left: 0,
+                yoyo: true,
+                repeat: -1,
+                ease: Linear.easeIn
+            })
+        }
+        function stars(s) {
             var starAmmount = 20;
             var originalCircle = document.getElementsByClassName('circle');
             var c = originalCircle[0].parentElement;
             for (i = 0; i < starAmmount; i++) {
                 var circle2 = originalCircle[0].cloneNode(true);
                 originalCircle[0].parentNode.appendChild(circle2);
-                //var circle2 = circle.cloneNode(true);
                 var xr = Math.floor(Math.random() * 100);
                 var yr = Math.floor(Math.random() * 100);
                 var rr = Math.random() * (.5 - .1) + .1;
@@ -56,19 +73,33 @@
                 circle2.setAttributeNS(null, 'cy', yr);
                 circle2.setAttributeNS(null, 'r', rr);
             }
-            animateStars();
-            function animateStars() {
-                var tr = Array.from({
-                    length: starAmmount
-                }, () => Math.floor(Math.random() * 20));
-                for (i = 0; i < starAmmount; i++) {
+            setTimeout(function() {
+                //functie die oude sterren verwijderd na 60 seconden
+                if (originalCircle.length > 1) {
                     for (i = 0; i < starAmmount; i++) {
-                        TweenMax.to(originalCircle[i], tr[i], {
-                            opacity: 0,
-                            repeat: -1,
-                            yoyo: true,
-                            ease: Power3.easeIn
-                        });
+                        originalCircle[1].parentNode.removeChild(originalCircle[1]);
+                    }
+                }
+            }, 1000 * 60)
+            animateStars();
+            //functie die de sterren of uit laat gaan, of laat flikkeren met random waarde tussen de 0 en 20 seconden
+            function animateStars() {
+                if (s == 'off') {
+                    originalCircle[0].parentElement.style.opacity = 0;
+                } else {
+                    originalCircle[0].parentElement.style.opacity = 1;
+                    var tr = Array.from({
+                        length: originalCircle.length
+                    }, () => Math.floor(Math.random() * 20));
+                    for (i = 0; i < originalCircle.length; i++) {
+                        for (i = 0; i < originalCircle.length; i++) {
+                            TweenMax.to(originalCircle[i], tr[i], {
+                                opacity: 0,
+                                repeat: -1,
+                                yoyo: true,
+                                ease: Power3.easeIn
+                            });
+                        }
                     }
                 }
             }
@@ -79,9 +110,12 @@
             var msg = document.getElementById('message');
             var div = document.getElementsByClassName('time');
             var time = new Date();
-            //instellen tijd in h1
+            var mn = document.getElementById('moon');
             clock.innerHTML = (("0" + time.getHours()).slice(-2)) + ':' + (("0" + time.getMinutes()).slice(-2));
             var x = time.getHours();
+            if(customTime) {
+                var x = customTime;
+            }
             switch (x) {
                 case 4:
                     div[9].style.opacity = 0;
@@ -89,6 +123,7 @@
                     msg.style.color = 'white';
                     mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(10%) saturate(0%)';
                     nacht();
+                    stars();
                     break
                 case 5:
                 case 6:
@@ -99,6 +134,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(50%) saturate(200%)';
                         nacht();
                     }
+                    stars('off');
                     break;
                 case 7:
                 case 8:
@@ -109,6 +145,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(75%) saturate(75%)';
                         ochtend();
                     }
+                    stars('off');
                     break;
                 case 9:
                 case 10:
@@ -120,6 +157,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(100deg) brightness(90%) saturate(10%)';
                         ochtend();
                     }
+                    stars('off');
                     break;
                 case 12:
                 case 13:
@@ -132,6 +170,7 @@
                         middag();
 
                     }
+                    stars('off');
                     break;
                 case 15:
                 case 17:
@@ -144,6 +183,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(100deg) brightness(90%) saturate(10%)';
                         middag();
                     }
+                    stars('off');
                     break;
                 case 20:
                 case 21:
@@ -154,6 +194,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(50%) saturate(130%)';
                         middag();
                     }
+                    stars('off');
                     break;
                 case 22:
                     for (i = 2; i < 10; i++) {
@@ -162,6 +203,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(10%) saturate(0%)';
                         avond();
                     }
+                    stars();
                     break;
                 case 23:
                     for (i = 1; i < 10; i++) {
@@ -171,6 +213,7 @@
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(10%) saturate(0%)';
                         avond();
                     }
+                    stars();
                     break;
                 case 0:
                 case 1:
@@ -182,31 +225,28 @@
                         msg.style.color = 'white';
                         mtn.style.filter = 'invert(1) sepia(100%) saturate(1000%) hue-rotate(200deg) brightness(10%) saturate(0%)';
                         nacht();
-
                     }
+                    stars();
                 default:
                     break;
-
             }
-
             function ochtend() {
-                msg.innerHTML = 'Tijd om op te staan!'
+                msg.innerHTML = 'Tijd om op te staan!';
+                mn.style.opacity = '0';
             }
-
             function middag() {
-                msg.innerHTML = 'Geniet van de dag'
+                msg.innerHTML = 'Geniet van de dag';
+                mn.style.opacity = '0';
             }
-
             function avond() {
-                msg.innerHTML = 'Tijd om naar bed te gaan'
+                msg.innerHTML = 'Tijd om naar bed te gaan';
+                mn.style.opacity = '1';
             }
-
             function nacht() {
-                msg.innerHTML = 'Zzz...'
+                msg.innerHTML = 'Zzz...';
+                mn.style.opacity = '1';
             }
         }
-
     </script>
 </body>
-
 </html>
