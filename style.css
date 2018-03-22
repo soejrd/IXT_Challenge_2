@@ -31,7 +31,6 @@ body {
   body h1 {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
-    color: red;
     font-size: 64px;
     display: block;
     margin-bottom: 15vh;
@@ -41,7 +40,7 @@ body {
     width: 100%;
     z-index: 3;
     filter: invert(1) sepia(100%) saturate(1000%) hue-rotate(-60deg) brightness(75%) saturate(5000%);
-    transition-duration: 300s; }
+    transition-duration: 1s; }
   body img#moon {
     position: fixed;
     top: 15vw;
@@ -58,7 +57,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 0;
-    transition: all 300s; }
+    transition: all 5s; }
   body div.time9 {
     background: #1E2733; }
   body div.time8 {
